@@ -78,7 +78,7 @@ eigen(matrix1)$vector
 ##¾ØÕóµÄË÷Òı
 matrix1 <- matrix(1:6,nrow=2)
 matrix1
-matrix1[1,]
+matrix1[1,] # ²âÊÔĞŞ¸Ä
 matrix1[,1]
 matrix1[1,1]
 matrix1[1:2,c(1,2)]
