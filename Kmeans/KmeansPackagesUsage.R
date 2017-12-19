@@ -28,7 +28,7 @@ plot(newIris[c("sepal.length","sepal.width")],
 plot(newIris[c("petal.length","petal.width")],
      col=kc$cluster,pch=as.integer(iris$class))
 
-#以上参数中 col 代表颜色，这里用聚类结果kc$cluster 来显示,pch (plot charater简称)，用之前的分类来显示
+#以上参数中 col 代表颜色，这里用聚类结果kc$cluster 来显示,pch (plot charater简称)，即显示的字符形状，用之前的分类来显示
 #这样能清楚的看出通过聚类后的分类和之前分类的区别
 
 #画出分类的中心点
