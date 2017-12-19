@@ -11,6 +11,7 @@ newIris<-iris[1:4]
 #调用kmeans，将样本分为3类
 kc<-kmeans(newIris,3) 
 
+kc$cluster
 
 #查看
 fitted(kc) #此函数用于查看之前样本点通过模型之后的拟合值，这里其实就是样本点所属分类簇质心的坐标
@@ -30,5 +31,6 @@ plot(newIris[c("petal.length","petal.width")],
 #以上参数中 col 代表颜色，这里用聚类结果kc$cluster 来显示,pch (plot charater简称)，用之前的分类来显示
 #这样能清楚的看出通过聚类后的分类和之前分类的区别
 
-
+#画出分类的中心点
+points(kc$centers,col=1:3,pch=16,cex=2)
 
