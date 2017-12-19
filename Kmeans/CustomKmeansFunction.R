@@ -38,6 +38,7 @@ customKmeans<-function(dataSet,k){
       for (j in 1:k) {
         #该for循环的循环次数为质心的个数，即计算第i个样本点到所有质心的距离，并记录下最短距离是多少，以及离哪个质心最近
         distIJ=Eudist(dataSet[i,],centroid[j,]) #计算样本中第i个点与第j个质心之间的欧式距离
+        if(is.na(distIJ)) distIJ = Inf
         if(distIJ<minDist){
           minDist=distIJ  #每次求距离都存入minDist中，如果发现更小的距离，则替换  
           minIndex=j  #并替换该样本点所属分类为质心点的序号
@@ -50,14 +51,13 @@ customKmeans<-function(dataSet,k){
         pointProperty[i,2]=minDist^2  #计算误差值 
       }
     }
-    #跟新每个质心的坐标
+    #本函数中是每更新一个样本分类即更新每个质心的坐标
     for(cent in 1:k){
       #该for循环的作用是找到新划分到第K个簇中的样本点，然后通过求均值求出最新的质心
-     newCluster=dataSet[which(pointProperty[,1]==k),] #从数据集所有样本中拿出目前标志位中标识属于第k类的样本点
+     newCluster=dataSet[which(pointProperty[,1]==cent),] #从数据集所有样本中拿出目前标志位中标识属于第k类的样本点
      centroid[k,]=apply(newCluster,2,mean)  #因为样本点的维度即样本点的列，所以通过计算该类的均值，计算出该类新的质心
      #通过循环后，我们重新计算了k个质心
     }
-    
     #while函数结束，质心不再发生变化
   }
   out = list(pointProperty = pointProperty ,centroid = centroid) #将聚类中的各种分析结果按照list类型输出，当然也可以继续自定义该输出结果
