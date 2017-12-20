@@ -1,0 +1,11 @@
+LogDensity,FrendDensity,TruePicture,TrueMan
+s,s,no,no
+s,l,yes,yes
+l,m,yes,yes
+m,m,yes,yes
+l,m,yes,yes
+m,l,no,yes
+m,s,no,no
+l,m,no,yes
+m,s,no,yes
+s,s,yes,no
