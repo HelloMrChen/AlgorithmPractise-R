@@ -69,6 +69,5 @@ customKmeans<-function(dataSet,k){
 newIris=iris[1:4]
 km<-customKmeans(newIris,3)
 
-km
-
+#代码运行后与kmeans包结果相同，但存在死循环，待改正
 
