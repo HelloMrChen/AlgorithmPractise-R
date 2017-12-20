@@ -10,3 +10,4 @@ plot(iris.rp,uniform = T,branch = 0,margin = 0.1,main="iris ID3")#http://f.datag
 text(iris.rp,use.n = T,col="blue",cex=1.2) #use.n 是控制下边50/0/0样本分类概况，col字体颜色、cex 字体大小
 
 
+#用fancyRpartPlot画图,但是rattle包总是安装失败
