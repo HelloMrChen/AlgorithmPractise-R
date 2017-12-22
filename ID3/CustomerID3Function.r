@@ -68,4 +68,16 @@ chooseBestFeatureToSplita<-function(dataSet){
   return(bestFeature) #返回最佳变量值
 }
 
+#递归生成树
+createTree<-function(dataSet){
+  decision_tree = list()  
+  #选择最佳属性进行分割
+  bestFearture=chooseBestFeatureToSplita(dataSet)
+  labelFeature=colnames(dataSet)[bestFearture] #获取最佳划分属性的变量名
+  decision_tree=rbind(decision_tree,labelFeature) #这里rbind方法，如果有一个变量列数不足，会自动重复补齐
+  
+}
+
+
+
 
