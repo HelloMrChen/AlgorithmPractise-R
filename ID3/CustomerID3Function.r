@@ -68,15 +68,60 @@ chooseBestFeatureToSplita<-function(dataSet){
   return(bestFeature) #返回最佳变量值
 }
 
+
+#最终判断属于哪一类的条件  
+majorityCnt <- function(classList){  
+  classCount = NULL  
+  count = as.numeric(table(classList))  
+  majorityList = levels(as.factor(classList))  
+  if(length(count) == 1){  
+    return (majorityList[1])  
+  }else{  
+    f = max(count)  
+    return (majorityList[which(count == f)][1])  
+  }  
+}  
+
+#判断剩余的值是否属于同一类，是否已经纯净了
+trick <- function(classList){  
+  count = as.numeric(table(classList))  
+  if(length(count) == 1){  
+    return (TRUE)  
+  }else  
+    return (FALSE)  
+} 
+
 #递归生成树
 createTree<-function(dataSet){
   decision_tree = list()  
-  #选择最佳属性进行分割
-  bestFearture=chooseBestFeatureToSplita(dataSet)
-  labelFeature=colnames(dataSet)[bestFearture] #获取最佳划分属性的变量名
-  decision_tree=rbind(decision_tree,labelFeature) #这里rbind方法，如果有一个变量列数不足，会自动重复补齐
+  classList = dataSet[,length(dataSet)]  
+  #判断是否属于同一类  
+  if(trick(classList))  
+    return (rbind(decision_tree,classList[1]))  
+  #是否在矩阵中只剩Label标签了，若只剩最后一列，则都分完了  
+  if(ncol(dataSet) == 1){  
+    decision_tree = rbind(decision_tree,majorityCnt(classList))  
+    return (decision_tree)  
+  } 
   
+  #选择最佳属性进行分割
+  bestFeature=chooseBestFeatureToSplita(dataSet)
+  labelFeature=colnames(dataSet)[bestFeature] #获取最佳划分属性的变量名
+  decision_tree=rbind(decision_tree,labelFeature) #这里rbind方法，如果有一个变量列数不足，会自动重复补齐
+  t=dataSet[,bestFeature]
+  temp_tree=data.frame()
+  for(j in 1:length(levels(as.factor(t)))){  
+    #这个标签的两个属性，比如“yes”，“no”，所属的数据集  
+    dataSet = splitDataSet(dataSet,bestFeature,levels(as.factor(t))[j])  
+    dataSet=dataSet[,-bestFeature]  
+    #递归调用这个函数  
+    temp_tree = createTree(dataSet)  
+    decision_tree = rbind(decision_tree,temp_tree)  
+  } 
+  return (decision_tree)
 }
+
+t<-createTree(iris)
 
 
 
